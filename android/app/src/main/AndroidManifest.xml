@@ -1,7 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.simple_document_scanner">
+    package="com.marchdev.simple_document_scanner">
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+   
+   <!-- Android 13 required -->
+   <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+   <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
    <application
-        android:label="simple_document_scanner"
+        android:label="Simple Document Scanner"
+        android:requestLegacyExternalStorage="true"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
