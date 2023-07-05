@@ -38,10 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
       _loading = true;
     });
 
-    var files = await Directory(await getAppDirectory())
-        .list()
-        .where((e) => e is File && e.path.endsWith('.pdf'))
-        .cast<File>()
+    var files = (await Directory(await getAppDirectory())
+            .list()
+            .where((e) => e is File && e.path.endsWith('.pdf'))
+            .cast<File>()
+            .toList())
+        .reversed
         .toList();
     setState(() {
       _loading = false;
