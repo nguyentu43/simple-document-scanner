@@ -45,3 +45,4 @@ app.*.map.json
 
 **/android/key.>properties
 recipes.jks
+/android/key.jks

@@ -1,17 +1,16 @@
 import 'dart:io';
 import 'package:collection/collection.dart';
 
-import 'package:edge_detection/edge_detection.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:reorderable_grid_view/reorderable_grid_view.dart';
 import 'package:simple_document_scanner/components/prevent_back_press.dart';
 import 'package:simple_document_scanner/constants/app.dart';
 import 'package:simple_document_scanner/screens/photo_view.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:lecle_downloads_path_provider/lecle_downloads_path_provider.dart';
+
+import 'package:cunning_document_scanner/cunning_document_scanner.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key});
@@ -24,33 +23,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
   final List<String> _imagePaths = [];
 
   Future<void> getImage() async {
-    bool isCameraGranted = await Permission.camera.request().isGranted;
+    final imagesPath = await CunningDocumentScanner.getPictures(true);
 
-    if (!isCameraGranted) {
-      return;
+    if (imagesPath!.isNotEmpty) {
+      setState(() {
+        _imagePaths.addAll(imagesPath);
+      });
     }
-
-    String imagePath = join((await getApplicationSupportDirectory()).path,
-        "${(DateTime.now().millisecondsSinceEpoch / 1000).round()}.jpeg");
-
-    try {
-      await EdgeDetection.detectEdge(imagePath,
-          canUseGallery: true,
-          androidCropTitle: "Cropping",
-          androidScanTitle: "Scanning",
-          androidCropBlackWhiteTitle: "Change to black/white",
-          androidCropReset: "Reset Crop");
-    } catch (e) {
-      exit(0);
-    }
-
-    if (!mounted) return;
-
-    if (!(await File(imagePath).exists())) return;
-
-    setState(() {
-      _imagePaths.add(imagePath);
-    });
   }
 
   Future<void> makePdf(BuildContext context) async {
@@ -103,8 +82,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
               onPressed: () {
                 makePdf(context);
               },
-              label: Row(
-                children: const [
+              label: const Row(
+                children: [
                   Icon(color: Colors.white, Icons.picture_as_pdf),
                   Text(style: TextStyle(color: Colors.white), 'Make PDF'),
                 ],
@@ -116,7 +95,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
               child: Text(
-                "Scanner",
+                "Tap + button to add some pictures",
                 style: TextStyle(fontSize: 35.0),
               ),
             ),
@@ -138,7 +117,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       onTap: getImage,
                       child: const Card(
                         child: Center(
-                          child: Icon(Icons.add),
+                          child: Icon(size: 60, Icons.add_a_photo),
                         ),
                       ),
                     ),

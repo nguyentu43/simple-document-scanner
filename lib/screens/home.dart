@@ -141,12 +141,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     .toList(),
               );
             }
-            return Align(
+            return const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                padding: EdgeInsets.symmetric(horizontal: 15.0),
                 child: Column(
-                  children: const [
+                  children: [
                     Text('No scanner document. Press below button to scan.'),
                   ],
                 ),
