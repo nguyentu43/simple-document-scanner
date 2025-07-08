@@ -83,16 +83,14 @@ class MainApp extends StatelessWidget {
               return FutureBuilder(
                 future: _initApp(context),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    if (snapshot.data!) {
-                      if (context.watch<TabProvider>().tab == MyTab.home) {
-                        return const HomeScreen();
-                      }
-                      if (context.watch<TabProvider>().tab == MyTab.about) {
-                        return const AboutScreen();
-                      }
-                      throw Exception("Tab not found");
+                  if (snapshot.hasData) {
+                    if (context.watch<TabProvider>().tab == MyTab.home) {
+                      return const HomeScreen();
                     }
+                    if (context.watch<TabProvider>().tab == MyTab.about) {
+                      return const AboutScreen();
+                    }
+                    throw Exception("Tab not found");
                   }
                   return const Center(child: CircularProgressIndicator());
                 },

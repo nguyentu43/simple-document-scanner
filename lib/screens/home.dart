@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:open_file_plus/open_file_plus.dart';
+import 'package:open_filex/open_filex.dart';
 import 'package:simple_document_scanner/utils/app.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -86,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Expanded(
                               child: InkWell(
                                 onTap: () {
-                                  OpenFile.open(e.path);
+                                  OpenFilex.open(e.path);
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),

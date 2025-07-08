@@ -23,7 +23,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
   final List<String> _imagePaths = [];
 
   Future<void> getImage() async {
-    final imagesPath = await CunningDocumentScanner.getPictures(true);
+    final imagesPath =
+        await CunningDocumentScanner.getPictures(isGalleryImportAllowed: true);
 
     if (imagesPath!.isNotEmpty) {
       setState(() {
@@ -95,7 +96,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
             const Padding(
               padding: EdgeInsets.only(top: 15.0, left: 15.0, right: 15.0),
               child: Text(
-                "Tap + button to add some pictures",
+                "Tap + button to add pictures",
                 style: TextStyle(fontSize: 35.0),
               ),
             ),
@@ -105,7 +106,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 child: ReorderableGridView.count(
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  crossAxisCount: 2,
+                  crossAxisCount: 3,
                   onReorder: (oldIndex, newIndex) {
                     setState(() {
                       final element = _imagePaths.removeAt(oldIndex);
@@ -117,7 +118,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                       onTap: getImage,
                       child: const Card(
                         child: Center(
-                          child: Icon(size: 60, Icons.add_a_photo),
+                          child: Icon(
+                              color: Colors.grey, size: 60, Icons.add_a_photo),
                         ),
                       ),
                     ),

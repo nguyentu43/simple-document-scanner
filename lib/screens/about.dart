@@ -20,7 +20,7 @@ class AboutScreen extends StatelessWidget {
               ),
             ),
             const Text(
-              "This app allow to make pdf from capture photo of documents. All pdf files located Download/sdc.",
+              "This app allows you to create PDF files by capturing photos of documents. All generated PDFs are saved in the Download/sdc folder.",
             ),
             ElevatedButton(
                 onPressed: () {

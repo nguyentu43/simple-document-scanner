@@ -29,8 +29,10 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdkVersion 34
+    compileSdkVersion 35
     ndkVersion flutter.ndkVersion
+
+    namespace "com.marchdev.simple_document_scanner"
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
